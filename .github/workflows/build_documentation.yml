@@ -29,15 +29,7 @@ jobs:
           cd transformers
           echo "${{ steps.vars.outputs.sha_short }}"
           git checkout ${{ steps.vars.outputs.sha_short }}
-
-      - name: Setup environment
-        run: pip install -e .
-
-#      - name: Setup environment
-#        run: pip install git+https://github.com/huggingface/transformers@${{ steps.vars.outputs.sha_short }}#egg=transformers[dev]
-
-      - name: Make documentation
-        run: |
+          pip install -e .
           ls
           ls ..
           cd ..
@@ -45,4 +37,10 @@ jobs:
           ls
           git checkout -b new-branch
           python src/build.py transformers ./transformers/docs/source
+
+#      - name: Setup environment
+#        run: pip install git+https://github.com/huggingface/transformers@${{ steps.vars.outputs.sha_short }}#egg=transformers[dev]
+
+      - name: Make documentation
+        run: |
 
