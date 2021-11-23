@@ -39,7 +39,7 @@ jobs:
       - name: Make documentation
         run: |
           ls
-          ls ..
+          git remote get-url origin
           git config --global user.name HuggingFace
           git config --global user.email transformers@huggingface.co
           git clone https://${{ secrets.HUGGINGFACE_PUSH }}@github.com/huggingface/doc-builder doc-builder
