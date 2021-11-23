@@ -50,5 +50,5 @@ jobs:
           python src/build.py transformers ./transformers/docs/source
           git add build
           git commit -m "Test commit"
-#          git push origin new-branch
+          git push origin new-branch
 
