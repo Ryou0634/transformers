@@ -1,0 +1,39 @@
+name: Build documentation
+
+on:
+  push:
+    branches:
+      - new_front_github_actions
+
+env:
+  HUGGINGFACE_PUSH: ${{ secrets.HUGGINGFACE_PUSH }}
+
+jobs:
+  build_and_package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: 'huggingface/doc-builder'
+          token: ${{ secrets.HUGGINGFACE_PUSH }}
+          ref: launch-script
+
+      - name: Clone transformers
+        run: |
+          git clone https://github.com/huggingface/transformers
+          git checkout ${{ steps.vars.outputs.sha_short }}
+
+      - name: Setup environment
+        run: pip install -e .
+
+      - name: Setup environment
+        run: pip install git+https://github.com/huggingface/transformers@${{ steps.vars.outputs.sha_short }}#egg=transformers[dev]
+
+      - name: Make documentation
+        run: python src/build.py transformers ./transformers/docs/source
+
+
