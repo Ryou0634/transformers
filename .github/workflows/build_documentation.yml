@@ -27,6 +27,7 @@ jobs:
           ls
           git clone https://github.com/huggingface/transformers
           cd transformers
+          echo "${{ steps.vars.outputs.sha_short }}"
           git checkout ${{ steps.vars.outputs.sha_short }}
 
       - name: Setup environment
@@ -38,7 +39,8 @@ jobs:
       - name: Make documentation
         run: |
           ls
-          cd ..
+          rm -r transformers
+          ls
           git checkout -b new-branch
           python src/build.py transformers ./transformers/docs/source
 
