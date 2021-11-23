@@ -41,8 +41,9 @@ jobs:
           ls
           ls ..
           cd ..
-          rm -r transformers
           ls
+          git init
+          git remote add origin https://${{ secrets.HUGGINGFACE_PUSH }}@github.com/huggingface/doc-builder
           git checkout -b new-branch
           python src/build.py transformers ./transformers/docs/source
           git add build
