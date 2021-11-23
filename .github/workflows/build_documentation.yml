@@ -40,8 +40,6 @@ jobs:
         run: |
           ls
           ls ..
-          cd ..
-          ls
           git config --global user.name HuggingFace
           git config --global user.email transformers@huggingface.co
           git clone https://${{ secrets.HUGGINGFACE_PUSH }}@github.com/huggingface/doc-builder doc-builder
@@ -50,5 +48,5 @@ jobs:
           python src/build.py transformers ./transformers/docs/source
           git add build
           git commit -m "Test commit"
-          git push origin new-branch
+          git push --force origin new-branch
 
