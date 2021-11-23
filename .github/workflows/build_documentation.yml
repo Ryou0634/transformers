@@ -24,16 +24,19 @@ jobs:
 
       - name: Clone transformers
         run: |
-          git clone https://github.com/huggingface/transformers
-          git checkout ${{ steps.vars.outputs.sha_short }}
+          | git clone https://github.com/huggingface/transformers
+          | cd transformers
+          | git checkout ${{ steps.vars.outputs.sha_short }}
 
       - name: Setup environment
         run: pip install -e .
 
-      - name: Setup environment
-        run: pip install git+https://github.com/huggingface/transformers@${{ steps.vars.outputs.sha_short }}#egg=transformers[dev]
+#      - name: Setup environment
+#        run: pip install git+https://github.com/huggingface/transformers@${{ steps.vars.outputs.sha_short }}#egg=transformers[dev]
 
       - name: Make documentation
-        run: python src/build.py transformers ./transformers/docs/source
-
+        run: |
+          | cd ..
+          | git checkout -b new-branch
+          | python src/build.py transformers ./transformers/docs/source
 
